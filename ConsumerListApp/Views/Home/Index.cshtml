@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="login-page">
+    <div class="form">
+        <form class="register-form" asp-action="Register" asp-controller="Home">
+            <input name="FirstName" type="text" placeholder="First Name" required />
+            <input name="LastName" type="text" placeholder="Last Name" required />
+            <input name="PhoneNumber" type="text" placeholder="Contact Number" required />
+            <input name="UserName" type="text" placeholder="Username" required />
+            <input name="Passwords" type="text" placeholder="Password" required />
+            <input name="Email" type="text" placeholder="Email Address" required />
+            <input type="submit" id="register-button" value="Register" />
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form class="login-form" asp-action="Login" asp-controller="Home">
+            <input name="UserName" type="text" placeholder="username" required />
+            <input name="Passwords" type="text" placeholder="password" required />
+            <input type="submit" id="login-button" value="Login" />
+            <label style="color: red;">@ViewBag.LoginError</label>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+    </div>
+</div>

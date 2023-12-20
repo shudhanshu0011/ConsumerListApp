@@ -1,0 +1,87 @@
+﻿@model ConsumerListApp.Models.ResponseTypeModel
+@using NonFactors.Mvc.Grid
+
+<div class="dashboard-header">
+    <h3 style="margin: 25px 25px 15px 40px;">Consumer Information</h3>
+    <form asp-action="Logout" asp-controller="Home">
+        <input type="submit" id="logout-button" value="Logout" />
+    </form>
+</div>
+<div class="consumer-info">
+    <div class="filter-search-area">
+        <div class="filter-area">
+            <div class="dropdown-form">
+                <label>Select Search Type</label>
+                <select id="Flag" onchange="showHide(this)">
+                    <option hidden>Select an option</option>
+                    <option value="F">Feeder Code</option>
+                    <option value="S">Substation & Subdivision Code</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="info-area">
+            <div class="dropdown-options">
+                <div class="show-hide" id="F">
+                    <label>Enter Feeder Code</label>
+                    <textarea id="FeederInput" class="FeederInput" required></textarea>
+                </div>
+                <div class="show-hide" id="S">
+                    <label>Enter Substation and Subdivision</label>
+                    <div>
+                        <input id="SubstaionCodeInput" type="text" placeholder="Substation Code" required/>
+                    </div>
+
+                    <div>
+                        <input id="SubDivisionCodeInput" type="text" placeholder="Subdivision Code" required/>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" id="search-btn" value="Search" />
+                    <a href="#show-grid-modal" id="modal-grid-btn" style="text-decoration: none; font-size: 12px;" >Show Grid View</a>
+                </div>
+                <div id="default-view">
+                    <h5>Please select an option to search.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" id="save-btn" value="Save Data"/>
+    
+    <div class="containers">
+        <div class="col-md-12">
+            <div id="ConsumerTableContainer"></div>
+        </div>
+    </div>
+            
+</div>
+
+<div id="show-address" class="modal">
+    <div class="modal__content">
+        <p id='showAddressId'></p>
+        <a href="#modal__close" class="address-close-btn">Close</a>
+
+    </div>
+</div>
+
+<div id="show-grid-modal" class="modal">
+    <div class="modal__content">
+        @if(Model != null){
+            @(Html.Grid(Model.Result).Build(columns =>
+                {
+                    columns.Add(model => model.name).Titled("Name");
+                    columns.Add(model => model.accno).Titled("Account Number");
+                    columns.Add(model => model.feeder_code).Titled("Feeder Code");
+                    columns.Add(model => model.feeder_name).Titled("Feeder Name");
+                    columns.Add(model => model.substation_code).Titled("Substation Code");
+                    columns.Add(model => model.mobile_no).Titled("Mobile Number");
+                    columns.Add(model => model.sdocode).Titled("Sdo Code");
+                    columns.Add(model => model.address).Titled("Address");
+                }) 
+            )
+        }
+        
+
+        <a href="#modal__close" class="address-close-btn">Close</a>
+    </div>
+</div>
