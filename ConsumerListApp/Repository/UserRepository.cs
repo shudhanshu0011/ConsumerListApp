@@ -15,7 +15,7 @@ namespace ConsumerListApp.Repository
 {
     public class UserRepository: IUserRepository
     {
-        string apiUrl = "http://1.23.144.185:8011/bsmartrms/cccConsumerlistforoutagesms";
+        string apiUrl = "http://192.168.1.223:83/Api/bsmartrms/cccConsumerlistforoutagesms";
         string username = "GUEST_USER_CFPP";
         string password = "6vZUzt![aN3FQ6r";
 
@@ -93,10 +93,7 @@ namespace ConsumerListApp.Repository
                         {
                             return null;
                         }
-                        int count = data.Result.Count();
-                        return count >= 0
-                        ? data.Result.Skip(StartIndex).Take(pageSize).ToList()
-                        : data.Result.ToList();
+                        return data.Result.ToList();
                     }
                 }
             }

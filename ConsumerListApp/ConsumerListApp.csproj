@@ -12,6 +12,7 @@
     <PackageReference Include="MySql.Data" Version="8.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NonFactors.Grid.Core.Mvc6" Version="7.2.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
   </ItemGroup>
 
 </Project>

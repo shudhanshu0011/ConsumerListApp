@@ -46,6 +46,102 @@ $('#save-btn').click(function () {
 
 })
 
+$('#modal-grid-btn').click(function () {
+    $.ajax({
+        url: '/Home/Grid',
+        type: 'POST',
+        dataType: 'json',
+        data: SearchPara(),
+        success: function (data) {
+            buildGrid(data);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+})
+
+var pageContentList = [];
+var activePage = 1;
+
+function buildGrid(data) {
+    let tableBody = document.getElementById('grid-body');
+    tableBody.innerHTML = '';  // Clear the existing table body
+
+    let pageBody = document.getElementById('page-list');
+    if (pageBody != null) {
+        pageBody.innerHTML = '';  // Clear the existing page body
+    }
+
+    const totalNumberOfPages = Math.ceil(data.length / 10);
+        
+    for (var i = 0; i < totalNumberOfPages; i++) {
+        let pageBody = document.getElementById('page-list');        
+        let button = document.createElement('BUTTON');
+        button.textContent = i + 1;
+        button.value = i + 1;
+        button.className = (i + 1) + "-button";
+        button.id = 'page';
+        pageBody.appendChild(button);
+
+        var currentPageContent = [];
+
+        for (var j = i; j < i+10; j++) {
+            let row = document.createElement('tr');
+
+            let columns = ['name', 'mobile_no', 'substation_code', 'feeder_code', 'feeder_name', 'accno', 'sdocode', 'address'];
+            columns.forEach(column => {
+                let cell = document.createElement('td');
+                cell.textContent = data[j][column];
+                row.appendChild(cell);
+            });
+
+            currentPageContent.push(row);
+        }
+
+        pageContentList.push(currentPageContent);
+    }
+
+    loadGridByPage(1);
+    changeActiveButton(1);
+}
+
+$(document).on("click", "#page", function () {
+    var pageNumber = $(this).val();
+    loadGridByPage(pageNumber);
+    changeActiveButton(pageNumber);
+})
+
+$('#prev-btn').click(function () {
+    if (activePage > 1) {
+        loadGridByPage(activePage - 1);
+        changeActiveButton(activePage - 1);
+    }
+})
+
+$('#next-btn').click(function () {
+    if (activePage < pageContentList.length) {
+        loadGridByPage(activePage + 1);
+        changeActiveButton(activePage + 1);
+    }
+})
+
+function loadGridByPage(pageNumber) {
+    let tableBody = document.getElementById('grid-body');
+    tableBody.innerHTML = '';  // Clear the existing table body
+    pageContentList[pageNumber - 1].forEach(row => {
+        tableBody.appendChild(row);
+    })
+}
+
+function changeActiveButton(pageNumber) {
+    $('.' + activePage + '-button').css("backgroundColor", "");
+    $('.' + activePage + '-button').css("color", "");
+    $('.' + pageNumber + '-button').css("color", "white");
+    $('.' + pageNumber + '-button').css("backgroundColor", "#0d6efd");
+    activePage = pageNumber;
+}
+
 function showHide(elem) {
     if (elem.selectedIndex != 0) {
         document.getElementById("default-view").style.display = 'none';

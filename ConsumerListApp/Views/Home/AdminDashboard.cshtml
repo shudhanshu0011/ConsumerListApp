@@ -1,5 +1,7 @@
-﻿@model ConsumerListApp.Models.ResponseTypeModel
-@using NonFactors.Mvc.Grid
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
+@model ConsumerPagingInfoModel
 
 <div class="dashboard-header">
     <h3 style="margin: 25px 25px 15px 40px;">Consumer Information</h3>
@@ -38,7 +40,7 @@
                 </div>
                 <div>
                     <input type="submit" id="search-btn" value="Search" />
-                    <a href="#show-grid-modal" id="modal-grid-btn" style="text-decoration: none; font-size: 12px;" >Show Grid View</a>
+                    <a href="#show-grid-modal" id="modal-grid-btn" style="text-decoration: none; font-size: 12px;">Show Grid View</a>
                 </div>
                 <div id="default-view">
                     <h5>Please select an option to search.</h5>
@@ -66,22 +68,28 @@
 
 <div id="show-grid-modal" class="modal">
     <div class="modal__content">
-        @if(Model != null){
-            @(Html.Grid(Model.Result).Build(columns =>
-                {
-                    columns.Add(model => model.name).Titled("Name");
-                    columns.Add(model => model.accno).Titled("Account Number");
-                    columns.Add(model => model.feeder_code).Titled("Feeder Code");
-                    columns.Add(model => model.feeder_name).Titled("Feeder Name");
-                    columns.Add(model => model.substation_code).Titled("Substation Code");
-                    columns.Add(model => model.mobile_no).Titled("Mobile Number");
-                    columns.Add(model => model.sdocode).Titled("Sdo Code");
-                    columns.Add(model => model.address).Titled("Address");
-                }) 
-            )
-        }
-        
-
+        <a href="#" class="modal__close">&times;</a>
+        <table class="table table-bordered">
+               <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>MobileNumber</th>
+                        <th>SubstationCode</th>
+                        <th>FeederCode</th>
+                        <th>FeederName</th>
+                        <th>AccountNumber</th>
+                        <th>SdoCode</th>
+                        <th>Address</th>
+                    </tr>
+               </thead>
+               <tbody id="grid-body">
+               </tbody>
+        </table>
+        <div id="pagination-container">
+            <button id="prev-btn">&lt;</button>
+            <div id="page-list"></div>
+            <button id="next-btn">&gt;</button>
+        </div>
         <a href="#modal__close" class="address-close-btn">Close</a>
     </div>
 </div>
