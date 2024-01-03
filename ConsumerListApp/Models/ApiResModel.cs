@@ -16,6 +16,6 @@
 
         public string mobile_no { get; set; }
 
-        public string name { get; set; }
+        public string fullname { get; set; }
     }
 }

@@ -65,7 +65,7 @@ namespace ConsumerListApp.Repository
                 parameters.Add("accno", consumer.accno);
                 parameters.Add("sdocode",  consumer.sdocode);
                 parameters.Add("mobile_no", consumer.mobile_no);
-                parameters.Add("fullname", consumer.name);
+                parameters.Add("fullname", consumer.fullname);
                 connection.Execute("SaveConsumerData", parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
         }

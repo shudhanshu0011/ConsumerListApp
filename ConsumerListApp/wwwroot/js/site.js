@@ -89,7 +89,7 @@ function buildGrid(data) {
         for (var j = i; j < i+10; j++) {
             let row = document.createElement('tr');
 
-            let columns = ['name', 'mobile_no', 'substation_code', 'feeder_code', 'feeder_name', 'accno', 'sdocode', 'address'];
+            let columns = ['fullname', 'mobile_no', 'substation_code', 'feeder_code', 'feeder_name', 'accno', 'sdocode', 'address'];
             columns.forEach(column => {
                 let cell = document.createElement('td');
                 cell.textContent = data[j][column];
@@ -165,7 +165,7 @@ function AdminTable() {
             listAction: '/Home/GetConsumerData'
         },
         fields: {
-            name: {
+            fullname: {
                 title: 'Name',
                 list: true,
                 Width: '10%',
