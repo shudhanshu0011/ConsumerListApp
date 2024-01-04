@@ -67,7 +67,7 @@ var activePage = 1;
 function buildGrid(data) {
     let tableBody = document.getElementById('grid-body');
     tableBody.innerHTML = '';  // Clear the existing table body
-
+      
     let pageBody = document.getElementById('page-list');
     if (pageBody != null) {
         pageBody.innerHTML = '';  // Clear the existing page body
@@ -110,20 +110,24 @@ $(document).on("click", "#page", function () {
     var pageNumber = $(this).val();
     loadGridByPage(pageNumber);
     changeActiveButton(pageNumber);
+    //console.log(activePage);
 })
 
 $('#prev-btn').click(function () {
-    if (activePage > 1) {
-        loadGridByPage(activePage - 1);
+    if (activePage > 1) {        
         changeActiveButton(activePage - 1);
+        loadGridByPage(activePage);
     }
+    //console.log(activePage);
 })
 
 $('#next-btn').click(function () {
+    
     if (activePage < pageContentList.length) {
-        loadGridByPage(activePage + 1);
         changeActiveButton(activePage + 1);
+        loadGridByPage(activePage);
     }
+    //console.log(activePage);
 })
 
 function loadGridByPage(pageNumber) {
